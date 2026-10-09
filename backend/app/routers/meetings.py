@@ -6,6 +6,11 @@ from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import desc, or_, func
 from typing import Optional
 from datetime import datetime
+import os
+import uuid
+import traceback
+from fastapi.concurrency import run_in_threadpool
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, UploadFile, File
 
 from app.database import get_db
 from app.models import Meeting, TranscriptSegment, Summary, ActionItem, Tag, meeting_tags
@@ -310,3 +315,79 @@ def update_summary(meeting_id: int, data: SummaryUpdate, db: Session = Depends(g
     db.commit()
     db.refresh(summary)
     return summary
+
+
+# ──────────────────────────── Video Processing Endpoint ────────────────────────────
+
+@router.post("/process-video")
+async def process_video(request: Request, file: UploadFile = File(...)):
+    """Process a video file using AssemblyAI and return transcript and summary."""
+    cl = request.headers.get("Content-Length")
+    
+    safe_ext = file.filename.split('.')[-1] if '.' in file.filename else 'mp4'
+    temp_video_path = f"temp_{uuid.uuid4().hex}.{safe_ext}"
+    
+    try:
+        await file.seek(0)
+        data = await file.read()
+        
+        # Save the uploaded file to the backend uploads directory so it can be served
+        backend_uploads_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "uploads")
+        os.makedirs(backend_uploads_dir, exist_ok=True)
+        final_video_path = os.path.join(backend_uploads_dir, temp_video_path)
+        
+        with open(final_video_path, "wb") as buffer:
+            buffer.write(data)
+            
+        file_size = os.path.getsize(final_video_path)
+        
+        if file_size == 0:
+            raise ValueError(f"Uploaded file is 0 bytes! Request Content-Length was {cl}.")
+            
+        def run_aai():
+            import assemblyai as aai
+            aai.settings.api_key = "1189d26771a14b71875662d7b37ae5f3"
+            transcriber = aai.Transcriber()
+            config = aai.TranscriptionConfig(
+                speaker_labels=True,
+                summarization=True,
+                summary_model=aai.SummarizationModel.informative,
+                summary_type=aai.SummarizationType.bullets
+            )
+            return transcriber.transcribe(final_video_path, config)
+
+        transcript = await run_in_threadpool(run_aai)
+        
+        if transcript.error:
+            raise ValueError(f"AssemblyAI Error: {transcript.error}")
+            
+        transcript_segments = []
+        if transcript.utterances:
+            for utterance in transcript.utterances:
+                transcript_segments.append({
+                    "speaker": f"Speaker {utterance.speaker}",
+                    "text": utterance.text,
+                    "start": utterance.start / 1000.0,
+                    "end": utterance.end / 1000.0
+                })
+        elif transcript.text:
+            transcript_segments.append({
+                "speaker": "Speaker A",
+                "text": transcript.text,
+                "start": 0,
+                "end": transcript.audio_duration if transcript.audio_duration else 0
+            })
+            
+        summary_text = transcript.summary if transcript.summary else "Transcription completed successfully."
+            
+    except Exception as e:
+        transcript_segments = [
+            {"speaker": "System", "text": f"Failed to transcribe: {str(e)}", "start": 0, "end": 5}
+        ]
+        summary_text = "Transcription failed due to an internal error."
+    
+    return {
+        "transcript": transcript_segments,
+        "summary": summary_text,
+        "video_url": f"/uploads/{temp_video_path}"
+    }

@@ -101,8 +101,8 @@ function DashboardContent() {
         formData.append('file', file);
         formData.append('summary_language', 'en');
 
-        const transcriberUrl = process.env.NEXT_PUBLIC_TRANSCRIBER_URL || 'http://localhost:8001/api';
-        const transcriberRes = await fetch(`${transcriberUrl}/process-video`, {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+        const transcriberRes = await fetch(`${apiUrl}/meetings/process-video`, {
           method: 'POST',
           body: formData
         });
