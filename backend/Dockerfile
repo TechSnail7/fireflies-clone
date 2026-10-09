@@ -12,8 +12,8 @@ COPY . .
 # Create the data directory for the SQLite database
 RUN mkdir -p /app/data
 
-# Expose the FastAPI port
-EXPOSE 8000
+# Expose the port required by Hugging Face Spaces
+EXPOSE 7860
 
-# Run the FastAPI server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the FastAPI server on port 7860
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
