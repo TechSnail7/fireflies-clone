@@ -1,0 +1,277 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #141414;
+  background-image: 
+    radial-gradient(ellipse at top left, rgba(45, 90, 120, 0.25) 0%, transparent 40%),
+    radial-gradient(ellipse at top right, rgba(130, 70, 40, 0.25) 0%, transparent 40%);
+}
+
+.content {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.heroBanner {
+  background: linear-gradient(135deg, #3A2318 0%, #291C14 100%);
+  border-radius: 16px;
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.heroText h2 {
+  font-size: 1.5rem;
+  color: #F3F4F6;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.heroText p {
+  color: #D1D5DB;
+  font-size: 0.9375rem;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.heroVideo {
+  width: 280px;
+  height: 160px;
+  background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.mockVideo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.playBtn {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #7C3AED;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding-left: 4px; /* optical center */
+  transition: transform 0.2s;
+}
+
+.heroVideo:hover .playBtn {
+  transform: scale(1.1);
+}
+
+.thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.heroVideo:hover .thumbnail {
+  opacity: 1;
+}
+
+.videoModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoModalContent {
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+
+.closeVideoBtn {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+.closeVideoBtn:hover {
+  opacity: 1;
+}
+
+.quickStartSection {
+  margin-bottom: 40px;
+}
+
+.quickStartSection h3 {
+  font-size: 1.125rem;
+  color: #F3F4F6;
+  margin-bottom: 8px;
+}
+
+.quickStartSection p {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+}
+
+.quickStartGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.quickStartCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #E5E7EB;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: transform 0.2s, filter 0.2s;
+  text-align: left;
+}
+
+.quickStartCard:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.quickStartCard span:nth-child(2) {
+  flex: 1;
+}
+
+.chevron {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.qsRed {
+  background-color: rgba(153, 27, 27, 0.2);
+  border: 1px solid rgba(153, 27, 27, 0.3);
+}
+
+.qsRed svg { color: #F87171; }
+
+.qsGreen {
+  background-color: rgba(6, 78, 59, 0.3);
+  border: 1px solid rgba(6, 78, 59, 0.4);
+}
+
+.qsGreen svg { color: #34D399; }
+
+.qsPurple {
+  background-color: rgba(76, 29, 149, 0.2);
+  border: 1px solid rgba(76, 29, 149, 0.3);
+}
+
+.qsPurple svg { color: #A78BFA; }
+
+.meetingsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.meetingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tabs {
+  display: flex;
+  background-color: #222222;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.tab {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #9CA3AF;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #F3F4F6;
+}
+
+.activeTab {
+  background-color: #333333;
+  color: #F3F4F6;
+}
+
+.settingsBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.settingsBtn:hover {
+  color: #F3F4F6;
+}
+
+.meetingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loading, .error, .empty {
+  padding: 40px;
+  text-align: center;
+  color: #9CA3AF;
+}

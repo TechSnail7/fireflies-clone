@@ -1,0 +1,564 @@
+/* ================================================
+   TranscriptPanel – Premium Dark Theme
+   ================================================ */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #0b0e14;
+  overflow: hidden;
+}
+
+/* ── Media Player Area ────────────────────────── */
+.mediaArea {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0d1017 0%, #111622 100%);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.12);
+  flex-shrink: 0;
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-height: 56px;
+}
+
+.videoPlayer {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
+.videoContainer:hover .videoOverlay {
+  opacity: 1;
+}
+
+.overlayPlayBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.5);
+}
+
+/* Audio-only placeholder */
+.audioPlaceholder {
+  width: 100%;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(99,102,241,0.05) 100%);
+}
+
+.waveformBars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 36px;
+}
+
+.waveformBar {
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #8b5cf6 0%, #6366f1 100%);
+  opacity: 0.4;
+  transition: height 0.3s, opacity 0.3s;
+}
+
+.waveformBar.activeBar {
+  opacity: 1;
+  background: linear-gradient(180deg, #a78bfa 0%, #7c3aed 100%);
+}
+
+.waveformPlaying .waveformBar {
+  animation: waveformPulse 1.2s ease-in-out infinite alternate;
+}
+
+.waveformPlaying .waveformBar:nth-child(2n) {
+  animation-delay: 0.15s;
+}
+.waveformPlaying .waveformBar:nth-child(3n) {
+  animation-delay: 0.3s;
+}
+.waveformPlaying .waveformBar:nth-child(5n) {
+  animation-delay: 0.45s;
+}
+
+@keyframes waveformPulse {
+  0%   { transform: scaleY(0.5); opacity: 0.4; }
+  100% { transform: scaleY(1.2); opacity: 1; }
+}
+
+/* ── Player Controls ──────────────────────────── */
+.playerControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px 6px;
+}
+
+.controlBtn {
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.controlBtn:hover {
+  background-color: rgba(148, 163, 184, 0.1);
+  color: #f1f5f9;
+}
+
+.playBtn {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35);
+  transition: all 0.2s;
+}
+
+.playBtn:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #fff;
+  transform: scale(1.06);
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.5);
+}
+
+.timeDisplay {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+  min-width: 85px;
+  flex-shrink: 0;
+}
+
+.timeDivider {
+  color: #475569;
+  margin: 0 1px;
+}
+
+.volumeGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.volumeSlider {
+  width: 60px;
+  height: 4px;
+  accent-color: #7c3aed;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, width 0.2s;
+}
+
+.volumeGroup:hover .volumeSlider {
+  opacity: 1;
+  width: 72px;
+}
+
+.speedBtn {
+  color: #94a3b8;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  transition: all 0.2s;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.speedBtn:hover {
+  background: rgba(148, 163, 184, 0.15);
+  color: #f1f5f9;
+}
+
+/* ── Custom Progress Bar ──────────────────────── */
+.progressArea {
+  padding: 0 20px 12px;
+}
+
+.progressTrack {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: #1e2533;
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  border-radius: 3px;
+  transition: width 0.05s linear;
+  pointer-events: none;
+}
+
+.progressThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a78bfa;
+  border: 2px solid #0b0e14;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.progressTrack:hover .progressThumb {
+  opacity: 1;
+}
+
+.progressTrack:hover .progressFill {
+  background: linear-gradient(90deg, #8b5cf6 0%, #c4b5fd 100%);
+}
+
+.progressInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Search Section ───────────────────────────── */
+.searchSection {
+  padding: 10px 20px;
+  border-bottom: 1px solid #1a2030;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background: rgba(15, 19, 28, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.searchContainer {
+  position: relative;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #475569;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  background-color: #111827;
+  border: 1px solid #1e2a3e;
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.8125rem;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #475569;
+}
+
+.searchInput:focus {
+  border-color: rgba(124, 58, 237, 0.5);
+  background-color: #151c2c;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
+}
+
+.searchInput:focus + .searchIcon,
+.searchInput:focus ~ .searchIcon {
+  color: #7c3aed;
+}
+
+.clearSearchBtn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #475569;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.clearSearchBtn:hover {
+  color: #f1f5f9;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.searchNav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.matchCount {
+  font-size: 0.6875rem;
+  color: #64748b;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0 4px;
+  min-width: 36px;
+  text-align: center;
+}
+
+.searchNavBtn {
+  color: #64748b;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.searchNavBtn:hover {
+  color: #f1f5f9;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.searchNavBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Transcript List ──────────────────────────── */
+.transcriptList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+}
+
+.segment {
+  display: flex;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 2px;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.segment:hover {
+  background-color: rgba(30, 37, 51, 0.6);
+}
+
+.segment::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.25s;
+}
+
+.activeSegment {
+  background-color: rgba(124, 58, 237, 0.06);
+  border-color: rgba(124, 58, 237, 0.12);
+}
+
+.activeSegment::before {
+  background: linear-gradient(180deg, #8b5cf6 0%, #6366f1 100%);
+}
+
+.activeSegment:hover {
+  background-color: rgba(124, 58, 237, 0.1);
+}
+
+/* Focused match (current search result) */
+.focusedSegment {
+  background-color: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.focusedSegment::before {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* ── Speaker Avatar ───────────────────────────── */
+.speakerAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  letter-spacing: 0.02em;
+}
+
+.speakerPulse {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid rgba(124, 58, 237, 0.4);
+  animation: speakerPulseAnim 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes speakerPulseAnim {
+  0%, 100% { transform: scale(1); opacity: 0; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ── Segment Content ──────────────────────────── */
+.segmentContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.segmentHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.speakerName {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: #e2e8f0;
+  letter-spacing: 0.01em;
+}
+
+.timestamp {
+  font-size: 0.6875rem;
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  padding: 1px 6px;
+  background: rgba(71, 85, 105, 0.12);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.segment:hover .timestamp {
+  color: #94a3b8;
+  background: rgba(71, 85, 105, 0.2);
+}
+
+.segmentText {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+.activeSegment .segmentText {
+  color: #cbd5e1;
+}
+
+/* ── Search Highlight ─────────────────────────── */
+.highlight {
+  background-color: rgba(245, 158, 11, 0.25);
+  color: #fde68a;
+  border-radius: 2px;
+  padding: 0 2px;
+  transition: all 0.2s;
+}
+
+.highlightActive {
+  background-color: rgba(245, 158, 11, 0.5);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.4);
+}
+
+/* ── Empty State ──────────────────────────────── */
+.emptyTranscript {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #475569;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.emptyTranscript svg {
+  opacity: 0.4;
+}
+
+.emptyTranscript p {
+  font-size: 0.875rem;
+}

@@ -1,0 +1,412 @@
+.sidebar {
+  width: 240px;
+  background-color: #171717;
+  border-right: 1px solid #2A2A2A;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: width 0.3s ease;
+  position: relative;
+  z-index: 50;
+}
+
+.collapsed {
+  width: 88px;
+}
+
+.header {
+  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collapsed .header {
+  padding: 16px 8px;
+}
+
+.workspaceSelector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  overflow: hidden;
+}
+
+.workspaceSelector:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  background-color: #5F8B99;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.workspaceName {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #E0E0E0;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.chevron {
+  color: #888;
+}
+
+.collapseBtn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.collapseBtn:hover {
+  color: #FFF;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navContainer {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  color: #B0B0B0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.collapsed .navItem {
+  padding: 10px;
+  justify-content: center;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #FFF;
+}
+
+.navItem.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFF;
+}
+
+.badgeGreen {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.emailAssistant {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.iconColorful {
+  color: #F43F5E;
+}
+
+.footer {
+  padding: 16px 12px;
+}
+
+.inviteCard {
+  background-color: #222222;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  text-align: center;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #888;
+  font-size: 1.2rem;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  color: #FFF;
+}
+
+.inviteText {
+  color: #E0E0E0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.createTeamBtn {
+  width: 100%;
+  background-color: #7C3AED;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.createTeamBtn:hover {
+  background-color: #6D28D9;
+}
+
+/* Modal and Dropdown Styles */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 90;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 60px;
+  left: 12px;
+  background-color: #1F1F1F;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  z-index: 100;
+  overflow: hidden;
+  color: #E5E7EB;
+  width: 580px;
+}
+
+.profileLeft {
+  width: 260px;
+  padding: 20px 0;
+  background-color: #1A1A1A;
+  border-right: 1px solid #333;
+}
+
+.profileInfo {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid #333;
+}
+
+.profileName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #F3F4F6;
+  margin: 0 0 4px;
+}
+
+.profileEmail {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+.profileSection {
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.sectionTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: #F3F4F6;
+}
+
+.usageBar {
+  height: 4px;
+  background-color: #333;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.usageFill {
+  height: 100%;
+  background-color: #10B981;
+  border-radius: 4px;
+}
+
+.usageText {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  margin: 0 0 12px;
+}
+
+.upgradeBtnSolid {
+  width: 100%;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.profileMenu {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileMenu a, .menuItemFlex {
+  padding: 10px 20px;
+  color: #D1D5DB;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.profileMenu a:hover, .menuItemFlex:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.menuItemFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.betaBadge {
+  background-color: #4C1D95;
+  color: #DDD6FE;
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+}
+
+.themeValue {
+  color: #9CA3AF;
+}
+
+.profileRight {
+  flex: 1;
+  padding: 20px;
+  background-color: #222222;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.appCard {
+  background-color: #2A2A2A;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.appCard h5 {
+  font-size: 0.9375rem;
+  color: #F3F4F6;
+  margin: 0 0 6px;
+}
+
+.appCard p {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+.appIconMobile {
+  color: #F43F5E;
+  margin-bottom: 8px;
+}
+
+.appStores {
+  display: flex;
+  gap: 8px;
+}
+
+.storeBtn {
+  background-color: #1A1A1A;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #D1D5DB;
+}
+
+.installBtn {
+  background-color: #333;
+  color: #F3F4F6;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.desktopAppCard {
+  background-color: rgba(76, 29, 149, 0.15);
+  border: 1px solid rgba(76, 29, 149, 0.3);
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.desktopAppCard:hover {
+  background-color: rgba(76, 29, 149, 0.25);
+}
+
+.desktopAppCard span {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #F3F4F6;
+}
