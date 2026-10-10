@@ -135,11 +135,11 @@ function DashboardContent() {
           throw new Error('Transcriber API error');
         }
       } catch (transcriberErr) {
-        console.warn('AI-Video-Transcriber service not reachable on :8001, falling back to mock data.', transcriberErr);
-        // Fallback to mock data if service is not running locally
+        console.warn('Backend API not reachable, falling back to mock data.', transcriberErr);
+        // Fallback to mock data if service is not reachable
         segments = [
-          { speaker: "You", text: "This is a fallback transcript since the AI-Video-Transcriber service is not running.", start_time: 0, end_time: 5 },
-          { speaker: "AI Assistant", text: "Please start the transcriber backend on port 8001 to use real transcription.", start_time: 6, end_time: 10 }
+          { speaker: "You", text: "This is a fallback transcript since the backend API is unreachable or returned an error.", start_time: 0, end_time: 5 },
+          { speaker: "System", text: "Please ensure your Render backend is running and the NEXT_PUBLIC_API_URL is correct.", start_time: 6, end_time: 10 }
         ];
         summaryData = {
           overview: "This meeting used fallback mocked data.",
