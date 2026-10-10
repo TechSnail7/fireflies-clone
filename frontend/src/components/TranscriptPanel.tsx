@@ -44,7 +44,14 @@ export default function TranscriptPanel({ segments, videoUrl }: TranscriptPanelP
   const [isMuted, setIsMuted] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const hasVideo = !!videoUrl;
+  
+  let resolvedVideoUrl = videoUrl;
+  if (videoUrl && videoUrl.startsWith('/')) {
+    const baseUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api').replace(/\/api\/?$/, '');
+    resolvedVideoUrl = `${baseUrl}${videoUrl}`;
+  }
+  
+  const hasVideo = !!resolvedVideoUrl;
 
   // ── Search State ──────────────────────────────────────────────
   const [searchQuery, setSearchQuery] = useState('');
@@ -202,7 +209,7 @@ export default function TranscriptPanel({ segments, videoUrl }: TranscriptPanelP
           <div className={styles.videoContainer}>
             <video
               ref={videoRef}
-              src={videoUrl}
+              src={resolvedVideoUrl}
               className={styles.videoPlayer}
               onLoadedMetadata={() => setDuration(videoRef.current?.duration || duration)}
               onTimeUpdate={() => {
