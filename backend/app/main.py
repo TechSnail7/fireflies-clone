@@ -22,11 +22,7 @@ app = FastAPI(
 # CORS configuration — allow Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://fireflies-clone-lbovuazdj-abc-50b1.vercel.app",
-        "*"
-    ],
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -57,6 +53,12 @@ def on_startup():
 def health_check():
     """Health check endpoint."""
     return {"status": "ok", "service": "fireflies-clone-api"}
+
+
+@app.get("/api/ping")
+def ping():
+    """Ultra-lightweight ping for cron jobs."""
+    return "ok"
 
 
 @app.get("/api/tags")
